@@ -2,7 +2,7 @@
 <template>
     <div>
       <h1>Home</h1>
-      <p>soy eduardooaaaaaOOO Bienvenido a la página de inicioosssasasoo.</p>
+      <p>soy eduardooaaaaaOOO Bienvenido a la página dsssse inicioosssasasoo.</p>
     </div>
   </template>
   
