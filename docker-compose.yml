@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: autos-10a
+      MYSQL_USER: autos
+      MYSQL_PASSWORD: passwordautos
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+      
+  backend:
+    build:
+      context: ./front-gpds-autos
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/autos-10a
+      SPRING_DATASOURCE_USERNAME: autos
+      SPRING_DATASOURCE_PASSWORD: passwordautos
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./back-ui-gpds
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" 
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
